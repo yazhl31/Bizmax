@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Bizmax | Corporate & Consulting Business — Yellow & Black Theme</title>
+  <!-- 
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Bizmax - Modern Corporate Website
+    Theme: Bold Black & Vibrant Yellow/Gold
+    Features: Responsive, Animated Sliders, Menu Icon that turns into Close "X"
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  -->
+  <!-- Bootstrap 5 for easy layout & components -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 for crisp icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Rubik for modern, clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Swiper JS for beautiful touch sliders -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    /* ----- GLOBAL RESET & VARIABLES (Easy to customize) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background-color: #000000;   /* Deep black base */
+      color: #aaaaaa;              /* Soft gray for comfortable reading */
+      overflow-x: hidden;
+    }
+
+    /* Brand Colors */
+    :root {
+      --primary-bg: #000000;
+      --card-bg: #111111;
+      --accent: #F5B042;           /* Vibrant yellow-gold */
+      --accent-dark: #e09d2c;
+      --heading-white: #FFFFFF;
+      --border-dark: #222222;
+      --text-light: #b0b0b0;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--heading-white);
+      font-weight: 700;
+    }
+
+    /* Reusable spacing */
+    .section-padding {
+      padding: 100px 0;
+    }
+
+    /* Card style */
+    .bg-card {
+      background-color: var(--card-bg);
+      border-radius: 20px;
+      transition: all 0.3s ease;
+    }
+
+    /* Buttons */
+    .btn-accent {
+      background-color: var(--accent);
+      color: black;
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-weight: 700;
+      transition: 0.3s;
+      border: none;
+    }
+    .btn-accent:hover {
+      background-color: #e0a233;
+      color: black;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline-light-custom {
+      border: 1px solid var(--border-dark);
+      background: transparent;
+      color: white;
+      padding: 12px 32px;
+      border-radius: 40px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    .btn-outline-light-custom:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ----- TOP BAR (contact info & quick links) ----- */
+    .top-bar {
+      background-color: #050505;
+      padding: 10px 0;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    /* ----- MAIN NAVIGATION (with special toggler that becomes X) ----- */
+    .navbar {
+      background-color: #000000 !important;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(245, 176, 66, 0.15);
+    }
+
+    .navbar-nav .nav-link {
+      color: #cccccc !important;
+      font-weight: 500;
+      margin: 0 12px;
+      transition: 0.3s;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    .navbar-brand {
+      font-size: 28px;
+      font-weight: 800;
+      color: white !important;
+      letter-spacing: -0.5px;
+    }
+    .navbar-brand span {
+      color: var(--accent);
+    }
+
+    /* 
+      ========== MAGIC TOGGLER: Hamburger to Close (X) ==========
+      When menu is closed -> three lines (hamburger)
+      When menu opens -> lines transform into X
+    */
+    .navbar-toggler {
+      border: none;
+      padding: 0;
+      width: 44px;
+      height: 44px;
+      position: relative;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    .navbar-toggler:focus {
+      box-shadow: none;
+      outline: none;
+    }
+    /* The central line of the hamburger */
+    .toggler-icon {
+      width: 28px;
+      height: 2px;
+      background-color: var(--accent);
+      display: block;
+      transition: all 0.3s ease;
+      position: relative;
+      margin: 0 auto;
+    }
+    /* Top and bottom lines (pseudo-elements) */
+    .toggler-icon::before,
+    .toggler-icon::after {
+      content: '';
+      width: 28px;
+      height: 2px;
+      background-color: var(--accent);
+      display: block;
+      position: absolute;
+      transition: all 0.3s ease;
+    }
+    .toggler-icon::before {
+      top: -8px;
+      left: 0;
+    }
+    .toggler-icon::after {
+      bottom: -8px;
+      left: 0;
+    }
+    /* When menu is collapsed (closed), show hamburger style */
+    .navbar-toggler.collapsed .toggler-icon {
+      background-color: var(--accent);
+    }
+    /* When menu is open (not collapsed), transform into X */
+    .navbar-toggler:not(.collapsed) .toggler-icon {
+      background-color: transparent;   /* hide the middle line */
+    }
+    .navbar-toggler:not(.collapsed) .toggler-icon::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    .navbar-toggler:not(.collapsed) .toggler-icon::after {
+      transform: rotate(-45deg);
+      bottom: 0;
+    }
+
+    /* ----- HERO SLIDER (full width, with overlay and text) ----- */
+    .hero-slider .swiper-slide {
+      min-height: 85vh;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .hero-slider .swiper-slide::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ----- INFINITE MARQUEE (scrolling text) ----- */
+    .marquee-wrap {
+      background: #0a0a0a;
+      padding: 20px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px solid var(--border-dark);
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .marquee-content {
+      display: inline-block;
+      animation: marquee 22s linear infinite;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #ddd;
+    }
+    .marquee-content span {
+      color: var(--accent);
+      margin: 0 30px;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ----- SERVICE CARDS (clean & hover effect) ----- */
+    .service-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px 20px;
+      transition: 0.3s;
+      text-align: center;
+      height: 100%;
+      border: 1px solid var(--border-dark);
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+    }
+    .service-card i {
+      font-size: 48px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    /* ----- ABOUT SECTION (with experience badge) ----- */
+    .about-img-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .exp-badge {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent);
+      padding: 12px 20px;
+      border-radius: 50px;
+      color: black;
+      font-weight: bold;
+    }
+    .progress {
+      height: 8px;
+      background-color: #2a2a2a;
+      border-radius: 20px;
+    }
+    .progress-bar {
+      background-color: var(--accent);
+      border-radius: 20px;
+    }
+
+    /* ----- PORTFOLIO & TEAM CARDS ----- */
+    .portfolio-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 10px;
+    }
+    .portfolio-card img {
+      width: 100%;
+      transition: 0.5s;
+      height: 260px;
+      object-fit: cover;
+    }
+    .portfolio-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .team-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: 0.3s;
+      text-align: center;
+    }
+    .team-img {
+      position: relative;
+      overflow: hidden;
+    }
+    .team-img img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+    .team-card:hover .team-img img {
+      transform: scale(1.05);
+    }
+    .social-overlay {
+      position: absolute;
+      bottom: -50px;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.8);
+      transition: 0.3s;
+      text-align: center;
+      padding: 12px 0;
+    }
+    .team-card:hover .social-overlay {
+      bottom: 0;
+    }
+
+    /* ----- TESTIMONIALS & FEATURES ----- */
+    .testimonial-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      margin: 10px;
+      border: 1px solid var(--border-dark);
+    }
+    .feature-item {
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 20px;
+      transition: 0.3s;
+      height: 100%;
+      border: 1px solid var(--border-dark);
+    }
+    .feature-item i {
+      font-size: 40px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    /* ----- CONTACT FORM & BLOG ----- */
+    .form-control, .form-select {
+      background-color: #1a1a1a;
+      border: 1px solid #333;
+      color: white;
+      padding: 12px;
+      border-radius: 12px;
+    }
+    .form-control:focus {
+      background-color: #1a1a1a;
+      border-color: var(--accent);
+      color: white;
+      box-shadow: none;
+    }
+    .blog-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 100%;
+      transition: 0.3s;
+    }
+    .blog-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      background-color: #050505;
+      padding: 70px 0 30px;
+      border-top: 1px solid var(--border-dark);
+    }
+    .footer-links li {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+    .footer-links a {
+      color: #aaa;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+    .copyright {
+      border-top: 1px solid var(--border-dark);
+      padding-top: 25px;
+      margin-top: 40px;
+    }
+    .text-accent {
+      color: var(--accent) !important;
+    }
+    .badge-accent {
+      background-color: var(--accent);
+      color: black;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+
+    /* ----- BACK TO TOP BUTTON (floating arrow) ----- */
+    .back-to-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 54px;
+      height: 54px;
+      background-color: var(--accent);
+      color: #000000;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .back-to-top:hover {
+      background-color: #e09d2c;
+      transform: translateY(-5px);
+    }
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Responsive fine-tuning */
+    @media (max-width: 991px) {
+      .section-padding {
+        padding: 60px 0;
+      }
+      .hero-slider .swiper-slide {
+        min-height: 70vh;
+      }
+      .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 46px;
+        height: 46px;
+        font-size: 24px;
+      }
+      .navbar-collapse {
+        background-color: #000000;
+        padding: 20px;
+        border-radius: 16px;
+        margin-top: 12px;
+        border: 1px solid var(--border-dark);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================== -->
+  <!-- 1. TOP BAR: contact & quick help (desktop only) -->
+  <!-- =============================================== -->
+  <div class="top-bar d-none d-lg-block">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <span class="me-4"><i class="fas fa-map-marker-alt me-2" style="color:#F5B042"></i> 123 Business Ave, New York</span>
+          <span><i class="fas fa-envelope me-2" style="color:#F5B042"></i> hello@bizmax.com</span>
+        </div>
+        <div class="col-md-6 text-end">
+          <a href="#" class="text-white-50 text-decoration-none me-3">Help</a>
+          <a href="#" class="text-white-50 text-decoration-none me-3">Support</a>
+          <a href="#" class="text-white-50 text-decoration-none">Contact</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 2. MAIN NAVIGATION (with custom hamburger that turns into X) -->
+  <!-- =============================================== -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Biz<span>max</span></a>
+      <!-- Custom Toggle Button: when closed shows hamburger, when open shows X -->
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Pages</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+        <div class="d-flex">
+          <a href="tel:+1234567890" class="btn btn-accent rounded-pill"><i class="fas fa-phone-alt me-2"></i> +1 (800) 456 789</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =============================================== -->
+  <!-- 3. HERO SLIDER (autoplay + navigation arrows) -->
+  <!-- =============================================== -->
+  <div class="hero-slider swiper mb-0">
+    <div class="swiper-wrapper">
+      <!-- Slide 1 -->
+      <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="container hero-content">
+          <span class="badge-accent d-inline-block mb-3"> This Week Only for World Premier</span>
+          <h1 class="display-1 fw-bold" style="font-size: 72px;">Inventive and<br>interested in innovation</h1>
+          <p class="lead my-4 w-75 text-light">We craft digital solutions that drive business growth and transformation using next‑gen tech.</p>
+          <a href="#" class="btn btn-accent rounded-pill px-5 py-3 fs-5">Get A Quote <i class="fas fa-arrow-right ms-2"></i></a>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="container hero-content">
+          <span class="badge-accent d-inline-block mb-3"> Digital Transformation</span>
+          <h1 class="display-1 fw-bold">Future-ready<br>Business Solutions</h1>
+          <p class="lead my-4 w-75">Empower your brand with bold strategy and creative execution.</p>
+          <a href="#" class="btn btn-accent rounded-pill px-5 py-3">Get A Quote</a>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="swiper-slide" style="background-image: linear-gradient(rgba(0,0,0.7), rgba(0,0,0.8)), url('https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+        <div class="container hero-content">
+          <span class="badge-accent d-inline-block mb-3"> Excellence driven</span>
+          <h1 class="display-1 fw-bold">Strategy meets<br>Innovation</h1>
+          <p class="lead my-4 w-75">Unlock growth with our data-driven consulting approach.</p>
+          <a href="#" class="btn btn-accent rounded-pill px-5 py-3">Let's Talk</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slider controls -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next text-white"></div>
+    <div class="swiper-button-prev text-white"></div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 4. INFINITE MARQUEE (branding slogan loop) -->
+  <!-- =============================================== -->
+  <div class="marquee-wrap">
+    <div class="marquee-content">
+      <span> Creative Business </span> <i class="fas fa-circle" style="font-size: 10px;"></i>
+      <span> Business Inspired Template </span> <i class="fas fa-circle"></i>
+      <span> Innovation Creative Design </span> <i class="fas fa-circle"></i>
+      <span> Creative Business </span> <i class="fas fa-circle"></i>
+      <span> Business Inspired Template </span> <i class="fas fa-circle"></i>
+      <span> Innovation Creative Design </span> <i class="fas fa-circle"></i>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 5. SERVICES SECTION (4 core offerings) -->
+  <!-- =============================================== -->
+  <div class="container section-padding">
+    <div class="text-center mb-5">
+      <span class="text-accent fw-semibold fs-5">✦ Our Service List ✦</span>
+      <h2 class="display-4 fw-bold mt-2">We Provide The Solution <br>For Our Clients</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-3 col-md-6"><div class="service-card"><i class="fas fa-chart-line"></i><h4>Accounting</h4><p>Financial planning and auditing services.</p><i class="fas fa-arrow-right text-accent mt-2 d-block"></i></div></div>
+      <div class="col-lg-3 col-md-6"><div class="service-card"><i class="fas fa-laptop-code"></i><h4>IT Support</h4><p>24/7 infrastructure & cloud solutions.</p><i class="fas fa-arrow-right text-accent mt-2 d-block"></i></div></div>
+      <div class="col-lg-3 col-md-6"><div class="service-card"><i class="fas fa-bullhorn"></i><h4>Marketing</h4><p>SEO, social media & growth strategies.</p><i class="fas fa-arrow-right text-accent mt-2 d-block"></i></div></div>
+      <div class="col-lg-3 col-md-6"><div class="service-card"><i class="fas fa-users"></i><h4>Human Resources</h4><p>Talent acquisition and HR consulting.</p><i class="fas fa-arrow-right text-accent mt-2 d-block"></i></div></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 6. ABOUT COMPANY (with experience badge & progress bars) -->
+  <!-- =============================================== -->
+  <div class="container section-padding pt-0">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="about-img-wrap">
+          <img src="https://images.pexels.com/photos/3182763/pexels-photo-3182763.jpeg?auto=compress&cs=tinysrgb&w=1200" class="img-fluid rounded-4 w-100" alt="Bizmax team collaboration" style="object-fit: cover; height: 500px;">
+          <div class="exp-badge"> 15+ Years Experience</div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <span class="text-accent fs-5">About Us</span>
+        <h2 class="display-5 fw-bold mt-2">Get Ready for Success with Bizmax Your Path to Growth.</h2>
+        <p class="mt-3">Providing legal advice, contract drafting, compliance assistance, intellectual property protection, and other legal support for businesses. Creating visual content, such as logos, brochures, infographics, and other branding materials.</p>
+        <div class="mt-4"><h6 class="fw-semibold">Accounting and Bookkeeping</h6><div class="progress"><div class="progress-bar" style="width: 90%"></div></div></div>
+        <div class="mt-3"><h6 class="fw-semibold">Human Resources (HR) Consulting</h6><div class="progress"><div class="progress-bar" style="width: 85%"></div></div></div>
+        <div class="row mt-4">
+          <div class="col-6"><i class="fas fa-check-circle text-accent me-2"></i> Strategic Thinking</div>
+          <div class="col-6"><i class="fas fa-check-circle text-accent me-2"></i> Creative Solutions</div>
+        </div>
+        <div class="mt-4"><a href="#" class="btn btn-accent me-3">Discover More</a><a href="#" class="btn btn-outline-light-custom">Contact Us</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 7. PORTFOLIO SHOWCASE (horizontal slider) -->
+  <!-- =============================================== -->
+  <div class="container section-padding pt-0">
+    <div class="text-center mb-4"><h2 class="display-5 fw-bold">Take a look our Completed Projects</h2></div>
+    <div class="swiper portfolio-swiper">
+      <div class="swiper-wrapper pb-4">
+        <div class="swiper-slide"><div class="portfolio-card"><img src="https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Fintech dashboard"><div class="portfolio-info"><span class="text-accent">UX Research</span><h4>Fintech Dashboard</h4></div></div></div>
+        <div class="swiper-slide"><div class="portfolio-card"><img src="https://images.pexels.com/photos/326501/pexels-photo-326501.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Branding project"><div class="portfolio-info"><span class="text-accent">Branding</span><h4>Creative Identity</h4></div></div></div>
+        <div class="swiper-slide"><div class="portfolio-card"><img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=600" alt="AI analytics"><div class="portfolio-info"><span class="text-accent">Development</span><h4>AI analytics</h4></div></div></div>
+        <div class="swiper-slide"><div class="portfolio-card"><img src="https://images.pexels.com/photos/5632371/pexels-photo-5632371.jpeg?auto=compress&cs=tinysrgb&w=600" alt="E-commerce store"><div class="portfolio-info"><span class="text-accent">E-commerce</span><h4>Online Store</h4></div></div></div>
+      </div>
+      <div class="swiper-pagination port-pagination"></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 8. WHY CHOOSE US + FEATURE GRID -->
+  <!-- =============================================== -->
+  <div class="container section-padding pt-0">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5"><h2 class="display-5 fw-bold">Why Choose Us</h2><p>We deliver tailored agency services with measurable outcomes and dedicated support.</p></div>
+      <div class="col-lg-7"><div class="row g-4"><div class="col-md-6"><div class="feature-item"><i class="fas fa-chart-pie"></i><h4>Digital Agency Services</h4><p class="small">Data-driven marketing and automation.</p></div></div><div class="col-md-6"><div class="feature-item"><i class="fas fa-paint-brush"></i><h4>Creative Agency</h4><p class="small">Bold design and storytelling.</p></div></div><div class="col-md-6"><div class="feature-item"><i class="fas fa-code"></i><h4>Expert Developers</h4><p class="small">Scalable web & mobile solutions.</p></div></div><div class="col-md-6"><div class="feature-item"><i class="fas fa-user-friends"></i><h4>User Friendly Design</h4><p class="small">Intuitive UX/UI interfaces.</p></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 9. TESTIMONIALS SLIDER (client love) -->
+  <!-- =============================================== -->
+  <div class="container section-padding pt-0">
+    <div class="text-center"><h2 class="display-5 fw-bold"> What Our Clients Say</h2></div>
+    <div class="swiper testi-swiper mt-5">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><div class="testimonial-card"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="client"><div class="rating mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Incredible team, they transformed our digital presence."</p><h5 class="mt-2">Darlene Robertson</h5><span class="small">Marketing Director</span></div></div>
+        <div class="swiper-slide"><div class="testimonial-card"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="client"><div class="rating mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Professional, fast, and creative. Highly recommend Bizmax!"</p><h5>Carol McCarthy</h5><span>CEO, TechStart</span></div></div>
+        <div class="swiper-slide"><div class="testimonial-card"><img src="https://randomuser.me/api/portraits/men/45.jpg" alt="client"><div class="rating mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>"Amazing support and outstanding strategy."</p><h5>Peter Johnson</h5><span>Founder</span></div></div>
+      </div>
+      <div class="swiper-pagination testi-pagination"></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 10. MEET THE TEAM (professional images) -->
+  <!-- =============================================== -->
+  <div class="container section-padding pt-0">
+    <div class="text-center mb-5"><h2 class="display-5 fw-bold">Meet the professional team <br>behind the success</h2></div>
+    <div class="row g-4">
+      <div class="col-md-4"><div class="team-card"><div class="team-img"><img src="https://images.pexels.com/photos/3777576/pexels-photo-3777576.jpeg?auto=compress&cs=tinysrgb&w=600" alt="CEO"><div class="social-overlay"><i class="fab fa-facebook-f mx-2"></i><i class="fab fa-twitter mx-2"></i><i class="fab fa-linkedin-in mx-2"></i></div></div><div class="p-3"><h4>Sarah Johnson</h4><p class="text-accent">CEO & Founder</p></div></div></div>
+      <div class="col-md-4"><div class="team-card"><div class="team-img"><img src="https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Creative Director"><div class="social-overlay"><i class="fab fa-facebook-f mx-2"></i><i class="fab fa-twitter mx-2"></i><i class="fab fa-linkedin-in mx-2"></i></div></div><div class="p-3"><h4>Michael Chen</h4><p class="text-accent">Creative Director</p></div></div></div>
+      <div class="col-md-4"><div class="team-card"><div class="team-img"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Tech Lead"><div class="social-overlay"><i class="fab fa-facebook-f mx-2"></i><i class="fab fa-twitter mx-2"></i><i class="fab fa-linkedin-in mx-2"></i></div></div><div class="p-3"><h4>Emily Rodriguez</h4><p class="text-accent">Tech Lead</p></div></div></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 11. CONTACT SECTION (info + message form) -->
+  <!-- =============================================== -->
+  <div class="container section-padding pt-0">
+    <div class="row g-5">
+      <div class="col-lg-5"><div class="contact-info-card"><i class="fas fa-phone-alt fa-2x text-accent mb-3"></i><h4>Phone</h4><p class="mb-4">+1 (800) 456 7890</p><i class="fas fa-envelope fa-2x text-accent mb-3"></i><h4>Email</h4><p>hello@bizmax.com</p><i class="fas fa-map-marker-alt fa-2x text-accent mt-3 mb-3"></i><h4>Address</h4><p>123 Business Ave, Suite 100, NYC</p></div></div>
+      <div class="col-lg-7"><div class="bg-card p-4 p-lg-5"><h3 class="mb-4">Send us a Message</h3><form><div class="row g-3"><div class="col-md-6"><input type="text" class="form-control" placeholder="Your Name"></div><div class="col-md-6"><input type="email" class="form-control" placeholder="Email Address"></div><div class="col-12"><input type="text" class="form-control" placeholder="Subject"></div><div class="col-12"><textarea rows="5" class="form-control" placeholder="How can we help?"></textarea></div><div class="col-12"><button type="button" class="btn btn-accent px-5">Submit Now <i class="fas fa-paper-plane ms-2"></i></button></div></div></form></div></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 12. CLIENT LOGOS (placeholder brands) -->
+  <!-- =============================================== -->
+  <div class="container py-5">
+    <div class="row text-center align-items-center justify-content-between g-4">
+      <div class="col-2"><img src="https://placehold.co/140x50/111111/F5B042?text=BRAND+A" class="img-fluid opacity-75" alt="client"></div>
+      <div class="col-2"><img src="https://placehold.co/140x50/111111/F5B042?text=BRAND+B" class="img-fluid opacity-75" alt="client"></div>
+      <div class="col-2"><img src="https://placehold.co/140x50/111111/F5B042?text=BRAND+C" class="img-fluid opacity-75" alt="client"></div>
+      <div class="col-2"><img src="https://placehold.co/140x50/111111/F5B042?text=BRAND+D" class="img-fluid opacity-75" alt="client"></div>
+      <div class="col-2"><img src="https://placehold.co/140x50/111111/F5B042?text=BRAND+E" class="img-fluid opacity-75" alt="client"></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 13. LATEST BLOG ARTICLES -->
+  <!-- =============================================== -->
+  <div class="container section-padding pt-0">
+    <div class="text-center mb-5"><h2 class="display-5 fw-bold"> Find Out Latest News and Articles</h2></div>
+    <div class="row g-4">
+      <div class="col-md-4"><div class="blog-card"><img src="https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=600" alt="AI"><div class="blog-info"><span class="text-accent small"><i class="far fa-calendar-alt me-1"></i> March 12, 2025</span><span class="mx-2">|</span><span>by Admin</span><h4 class="mt-2">Future of AI in Business</h4><p>Exploring the impact of generative AI on modern enterprises...</p><a href="#" class="text-accent text-decoration-none">Read More →</a></div></div></div>
+      <div class="col-md-4"><div class="blog-card"><img src="https://images.pexels.com/photos/3912943/pexels-photo-3912943.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Marketing"><div class="blog-info"><span class="text-accent small"><i class="far fa-calendar-alt me-1"></i> March 8, 2025</span><span class="mx-2">|</span><span>by Editor</span><h4 class="mt-2">Next-Gen Digital Marketing</h4><p>How brands adapt to consumer shifts in 2025.</p><a href="#" class="text-accent text-decoration-none">Read More →</a></div></div></div>
+      <div class="col-md-4"><div class="blog-card"><img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600" alt="UX"><div class="blog-info"><span class="text-accent small"><i class="far fa-calendar-alt me-1"></i> March 1, 2025</span><span class="mx-2">|</span><span>by Sarah</span><h4 class="mt-2">Design Systems & Scalability</h4><p>Creating consistent experiences at scale.</p><a href="#" class="text-accent text-decoration-none">Read More →</a></div></div></div>
+    </div>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- 14. FOOTER (links, newsletter & social) -->
+  <!-- =============================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4"><h3 class="fw-bold">Biz<span class="text-accent">max</span></h3><p class="mt-3">Innovative digital agency delivering business solutions worldwide.</p><div class="mt-3"><i class="fab fa-facebook-f me-3 fs-5"></i><i class="fab fa-twitter me-3 fs-5"></i><i class="fab fa-instagram me-3 fs-5"></i><i class="fab fa-linkedin-in fs-5"></i></div></div>
+        <div class="col-lg-2"><h5>Quick Links</h5><ul class="footer-links ps-0"><li><a href="#">About</a></li><li><a href="#">Services</a></li><li><a href="#">Projects</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div class="col-lg-3"><h5>Services</h5><ul class="footer-links ps-0"><li><a href="#">Accounting</a></li><li><a href="#">IT Support</a></li><li><a href="#">Marketing</a></li><li><a href="#">Human Resources</a></li></ul></div>
+        <div class="col-lg-3"><h5>Newsletter</h5><p>Subscribe for latest updates.</p><div class="input-group"><input type="email" class="form-control bg-dark text-white border-secondary" placeholder="Your email"><button class="btn btn-accent">Subscribe</button></div></div>
+      </div>
+      <div class="copyright text-center mt-4 pt-3"><p class="mb-0">© 2025 Bizmax — Corporate & Consulting Business. All rights reserved.</p></div>
+    </div>
+  </footer>
+
+  <!-- Floating Back to Top Arrow Button -->
+  <div class="back-to-top" id="backToTopBtn" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- SCRIPTS (Bootstrap, Swiper and custom logic) -->
+  <!-- =============================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // --- Hero Slider (main banner) ---
+    new Swiper('.hero-slider', {
+      loop: true,
+      autoplay: { delay: 5000 },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
+    });
+
+    // --- Portfolio carousel (responsive) ---
+    new Swiper('.portfolio-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      breakpoints: { 768: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } },
+      pagination: { el: '.port-pagination', clickable: true }
+    });
+
+    // --- Testimonials slider ---
+    new Swiper('.testi-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      breakpoints: { 768: { slidesPerView: 2 }, 992: { slidesPerView: 2.5 } },
+      pagination: { el: '.testi-pagination', clickable: true }
+    });
+
+    // --- Back to Top logic: show button after scrolling 400px ---
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    backToTopBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // --- Ensure the toggler icon reflects menu state (hamburger <-> X) ---
+    const togglerBtn = document.querySelector('.navbar-toggler');
+    const collapseMenu = document.getElementById('mainNav');
+    if (togglerBtn && collapseMenu) {
+      collapseMenu.addEventListener('shown.bs.collapse', () => togglerBtn.classList.remove('collapsed'));
+      collapseMenu.addEventListener('hidden.bs.collapse', () => togglerBtn.classList.add('collapsed'));
+    }
+  </script>
+</body>
+</html>
